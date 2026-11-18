@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "depot-sim"
+version = "0.1.0"
+description = "Discrete-event simulation of an electric-van charging depot, validated against Erlang C"
+requires-python = ">=3.11"
+dependencies = ["simpy>=4.1", "numpy>=1.26", "pandas>=2.1", "scipy>=1.11"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "matplotlib>=3.8", "nbconvert>=7", "ipykernel>=6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: full-length validation runs (deselect with -m 'not slow')"]
