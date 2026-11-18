@@ -213,10 +213,11 @@ def run_depot(cfg: DepotConfig, rng: np.random.Generator, keep_logs: bool = Fals
             if day == cfg.n_days:
                 return
             energy_need = dist[van, day] * cfg.kwh_per_km
-            used = min(energy_need, soc * cap)
+            stranded = energy_need > soc * cap
+            used = soc * cap if stranded else energy_need
             trips.append({"van": van, "day": day, "need_kwh": energy_need,
-                          "used_kwh": used, "stranded": used < energy_need - 1e-9})
-            soc -= used / cap
+                          "used_kwh": used, "stranded": stranded})
+            soc = 0.0 if stranded else soc - used / cap  # exact zero, no -1e-17
             yield env.timeout(back[van, day] - env.now)
             soc = yield env.process(charge(van, day, soc))
 
