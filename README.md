@@ -83,7 +83,7 @@ To confirm these tests constrain something, four bugs were planted one at a time
 | Power cap not enforced | 2 |
 | 2% overcharge per session | 10 |
 | Trip energy capped at 40 kWh | 5 |
-| Charger id not returned to the pool | 32 |
+| Charger id not returned to the pool | 32 (2 failures, 30 errors) |
 
 Directional checks (`test_sensitivity.py`) use common random numbers:
 
